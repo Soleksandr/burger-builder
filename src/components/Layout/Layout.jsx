@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Aux from '../../hoc/Aux';
 import classes from './Layout.css';
 
@@ -10,4 +11,8 @@ const layout = props => (
 );
 
 export default layout;
+
+layout.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 

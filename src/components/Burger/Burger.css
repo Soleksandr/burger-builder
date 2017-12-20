@@ -1,0 +1,12 @@
+.Burger {
+  width: 100%;
+  margin: auto;
+  height: 250px;
+}
+
+@media (min-widht: 1000px) and (min-height: 700px) {
+  .Burger {
+    width: 700px;
+    height: 600px;
+  }
+}
