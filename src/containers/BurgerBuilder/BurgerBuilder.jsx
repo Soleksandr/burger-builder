@@ -19,6 +19,7 @@ export default class BurgerBuilder extends Component {
       cheese: 0,
     },
     totalPrice: '3.00',
+    anySelected: false,
   }
 
   addIngredient = (type) => {
@@ -28,32 +29,35 @@ export default class BurgerBuilder extends Component {
         [type]: prevState.ingredients[type] + 1,
       },
       totalPrice: (+prevState.totalPrice + PRICE[type]).toFixed(2),
+      anySelected: true,
     }));
   }
 
   removeIngredient = (type) => {
-    this.setState(prevState => ({
-      ingredients: {
+    this.setState((prevState) => {
+      const ingredients = {
         ...prevState.ingredients,
         [type]: prevState.ingredients[type] ? prevState.ingredients[type] - 1 : 0,
-      },
-      totalPrice: prevState.ingredients[type] ? (+prevState.totalPrice - PRICE[type]).toFixed(2) : prevState.totalPrice,
-    }));
+      };
+      const totalPrice = prevState.ingredients[type]
+        ? (+prevState.totalPrice - PRICE[type]).toFixed(2)
+        : prevState.totalPrice;
+      const anySelected = Object.values(ingredients).some(amount => !!amount);
+
+      return { ingredients, totalPrice, anySelected };
+    });
   }
 
   render() {
-    const disabledInfo = Object.keys(this.state.ingredients)
-      .map(ingredient => ({ ingredient: !this.state.ingredients[ingredient] }));
-
     return (
       <Aux>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           addIngredient={this.addIngredient}
           removeIngredient={this.removeIngredient}
-          disabledInfo={disabledInfo}
           ingredients={this.state.ingredients}
           price={this.state.totalPrice}
+          anySelected={this.state.anySelected}
         />
       </Aux>
     );
