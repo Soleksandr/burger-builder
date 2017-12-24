@@ -1,22 +1,59 @@
 import React, { Component } from 'react';
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+
+const PRICE = {
+  salad: 0.6,
+  meat: 1.2,
+  bacon: 0.9,
+  cheese: 0.7,
+};
 
 export default class BurgerBuilder extends Component {
   state = {
     ingredients: {
-      salad: 3,
-      meat: 1,
-      bacon: 1,
-      cheese: 2,
+      salad: 0,
+      meat: 0,
+      bacon: 0,
+      cheese: 0,
     },
+    totalPrice: 3,
+  }
+
+  addIngredient = (type) => {
+    this.setState(prevState => ({
+      ingredients: {
+        ...prevState.ingredients,
+        [type]: prevState.ingredients[type] + 1,
+      },
+      totalPrice: prevState.totalPrice + PRICE[type],
+    }));
+  }
+
+  removeIngredient = (type) => {
+    this.setState(prevState => ({
+      ingredients: {
+        ...prevState.ingredients,
+        [type]: prevState.ingredients[type] ? prevState.ingredients[type] - 1 : 0,
+      },
+      totalPrice: prevState.ingredients[type] ? prevState.totalPrice - PRICE[type] : prevState.totalPrice,
+    }));
   }
 
   render() {
+    const disabledInfo = Object.keys(this.state.ingredients)
+      .map(ingredient => ({ ingredient: !this.state.ingredients[ingredient] }));
+
     return (
       <Aux>
         <Burger ingredients={this.state.ingredients} />
-        <div>Burger controls</div>
+        <BuildControls
+          addIngredient={this.addIngredient}
+          removeIngredient={this.removeIngredient}
+          disabledInfo={disabledInfo}
+          ingredients={this.state.ingredients}
+        />
       </Aux>
     );
   }

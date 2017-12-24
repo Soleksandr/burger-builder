@@ -2,7 +2,8 @@
   width: 100%;
   margin: auto;
   height: 250px;
-  overflow: scroll;
+  overflow-y: auto;
+  text-align: center;
 }
 
 @media (min-widht: 1000px) and (min-height: 700px) {
