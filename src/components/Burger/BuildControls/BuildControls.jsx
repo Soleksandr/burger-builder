@@ -13,6 +13,7 @@ const controls = [
 const buildControls = (props) => {
   return (
     <div className={classes.BuildControls}>
+      <p>Current price: {props.price} $</p>
       {controls.map(c => (
         <BuildControl
           key={c.label}
@@ -33,4 +34,5 @@ buildControls.propTypes = {
   addIngredient: PropTypes.func.isRequired,
   removeIngredient: PropTypes.func.isRequired,
   ingredients: PropTypes.objectOf(PropTypes.number).isRequired,
+  price: PropTypes.string.isRequired,
 };

@@ -18,7 +18,7 @@ export default class BurgerBuilder extends Component {
       bacon: 0,
       cheese: 0,
     },
-    totalPrice: 3,
+    totalPrice: '3.00',
   }
 
   addIngredient = (type) => {
@@ -27,7 +27,7 @@ export default class BurgerBuilder extends Component {
         ...prevState.ingredients,
         [type]: prevState.ingredients[type] + 1,
       },
-      totalPrice: prevState.totalPrice + PRICE[type],
+      totalPrice: (+prevState.totalPrice + PRICE[type]).toFixed(2),
     }));
   }
 
@@ -37,7 +37,7 @@ export default class BurgerBuilder extends Component {
         ...prevState.ingredients,
         [type]: prevState.ingredients[type] ? prevState.ingredients[type] - 1 : 0,
       },
-      totalPrice: prevState.ingredients[type] ? prevState.totalPrice - PRICE[type] : prevState.totalPrice,
+      totalPrice: prevState.ingredients[type] ? (+prevState.totalPrice - PRICE[type]).toFixed(2) : prevState.totalPrice,
     }));
   }
 
@@ -53,6 +53,7 @@ export default class BurgerBuilder extends Component {
           removeIngredient={this.removeIngredient}
           disabledInfo={disabledInfo}
           ingredients={this.state.ingredients}
+          price={this.state.totalPrice}
         />
       </Aux>
     );
