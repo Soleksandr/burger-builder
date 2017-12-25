@@ -12,7 +12,6 @@ class BuildControl extends Component {
   }
 
   render() {
-    console.log(this.props.disabled)
     return (
       <div className={classes.BuildControl}>
         <div className={classes.Label}>{this.props.label}</div>

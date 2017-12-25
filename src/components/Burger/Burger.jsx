@@ -12,7 +12,6 @@ const burger = (props) => {
           type={name}
         />)))
     .reduce((res, el) => res.concat(el), []);
-  console.log(transformedIngredients.length)
   if (!transformedIngredients.length) {
     transformedIngredients = <h2>Specify ingredients please!!!</h2>;
   }

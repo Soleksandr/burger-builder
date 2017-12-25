@@ -24,7 +24,12 @@ const buildControls = (props) => {
           disabled={!props.ingredients[c.type]}
         />
       ))}
-      <button disabled={!props.anySelected} className={classes.OrderButton}>order now</button>
+      <button
+        disabled={!props.anySelected}
+        className={classes.OrderButton}
+        onClick={props.onOrderConfirm}
+      >order now
+      </button>
     </div>
   );
 };
@@ -36,4 +41,6 @@ buildControls.propTypes = {
   removeIngredient: PropTypes.func.isRequired,
   ingredients: PropTypes.objectOf(PropTypes.number).isRequired,
   price: PropTypes.string.isRequired,
+  anySelected: PropTypes.bool.isRequired,
+  onOrderConfirm: PropTypes.func.isRequired,
 };
