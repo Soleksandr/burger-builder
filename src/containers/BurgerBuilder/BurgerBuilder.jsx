@@ -59,6 +59,10 @@ export default class BurgerBuilder extends Component {
     this.setState({ purchasing: false });
   }
 
+  acceptPurchasing = () => {
+    console.log('--- accepted ---')
+  }
+
   render() {
     return (
       <Aux>
@@ -66,7 +70,12 @@ export default class BurgerBuilder extends Component {
           show={this.state.purchasing}
           onCloseModal={this.abortPurchasing}
         >
-          <OrderSummary ingredients={this.state.ingredients} />
+          <OrderSummary
+            price={this.state.totalPrice}
+            ingredients={this.state.ingredients}
+            clickedYes={this.acceptPurchasing}
+            clickedNo={this.abortPurchasing}
+          />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
