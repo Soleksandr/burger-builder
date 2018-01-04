@@ -55,10 +55,17 @@ export default class BurgerBuilder extends Component {
     this.setState({ purchasing: true });
   }
 
+  abortPurchasing = () => {
+    this.setState({ purchasing: false });
+  }
+
   render() {
     return (
       <Aux>
-        <Modal show={this.state.purchasing}>
+        <Modal
+          show={this.state.purchasing}
+          onCloseModal={this.abortPurchasing}
+        >
           <OrderSummary ingredients={this.state.ingredients} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
