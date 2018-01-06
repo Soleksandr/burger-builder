@@ -1,8 +1,25 @@
 .NavigationItems {
+  display: block;
+  list-style: none;
+}
+
+.NavigationItems ul {
+  display: block;
   margin: 0;
   padding: 0;
-  display: flex;
-  align-items: center;
   height: 100%;
-  list-style: none;
+}
+
+@media(min-width: 500px) {
+  .NavigationItems {
+    display: flex;
+    align-items: center;
+  }
+
+  .NavigationItems ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
 }
