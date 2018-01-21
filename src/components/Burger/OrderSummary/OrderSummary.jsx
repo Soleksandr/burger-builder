@@ -4,6 +4,7 @@ import Aux from '../../../hoc/Aux';
 import Button from '../../UI/Button/Button';
 
 const orderSummary = (props) => {
+  console.log('ingredients in ordersummary ', props.ingredients)
   const ingredients = Object.keys(props.ingredients)
     .map(ingredient => (
       <li key={ingredient}>
