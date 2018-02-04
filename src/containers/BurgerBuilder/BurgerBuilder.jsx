@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -74,23 +75,30 @@ class BurgerBuilder extends Component {
   }
 
   acceptPurchasing = () => {
-    this.setState({ loading: true });
-    const order = this.getOrderDetails();
-    axios.post('/orders.json', order)
-      .then((res) => {
-        this.setState({
-          purchasing: false,
-          loading: false,
-        });
-        console.log('response : ', res);
-      })
-      .catch((err) => {
-        this.setState({
-          purchasing: false,
-          loading: false,
-        });
-        console.log('error : ', err);
-      });
+    const query = Object.entries(this.state.ingredients)
+      .map(arr => `${encodeURIComponent(arr[0])}=${encodeURIComponent(arr[1])}`);
+    console.log('query = ', query)
+    this.props.history.push({
+      pathname: '/checkout',
+      search: `${query.join('&')}`,
+    });
+    // this.setState({ loading: true });
+    // const order = this.getOrderDetails();
+    // axios.post('/orders.json', order)
+    //   .then((res) => {
+    //     this.setState({
+    //       purchasing: false,
+    //       loading: false,
+    //     });
+    //     console.log('response : ', res);
+    //   })
+    //   .catch((err) => {
+    //     this.setState({
+    //       purchasing: false,
+    //       loading: false,
+    //     });
+    //     console.log('error : ', err);
+    //   });
   }
 
   render() {
@@ -137,3 +145,10 @@ class BurgerBuilder extends Component {
 }
 
 export default withErrorHandler(BurgerBuilder, axios);
+
+BurgerBuilder.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
